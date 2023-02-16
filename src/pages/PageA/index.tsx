@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from '@/hooks'
-import React, { memo, Suspense } from 'react'
+import React, { memo, Suspense, useState } from 'react'
 import {
   useMatch,
   useSearchParams,
@@ -14,21 +14,23 @@ import {
   incrementByAmount,
   asyncAddCounter,
 } from '@/store/counterSlice'
-
-interface IProps {}
-const PageA: React.FC<IProps> = ({}) => {
+import { RenderProps } from '@/components'
+const PageA: React.FC = () => {
   const [urlSearchParams] = useSearchParams()
   const location = useLocation()
   const navigate = useNavigate()
   const navigation = useNavigation()
   const counterValue = useAppSelector(({ counter: { value } }) => value)
   const dispatch = useAppDispatch()
-
+  const [name, setName] = useState<CPN.RenderP['name']>('')
   const onClick = () => {
     navigate('/pageb/2')
   }
   return (
     <div>
+      <RenderProps name={name}>
+        {(setAge) => <div onClick={() => setAge(10)}>ttt</div>}
+      </RenderProps>
       Page-------A
       <div
         onClick={onClick}
